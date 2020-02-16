@@ -47,21 +47,22 @@ class Auth extends CI_Controller
                         // set session 
                         $this->session->set_userdata($data);
                         if ($user['role_id'] == 1) {
+                            $this->session->set_flashdata('flash-success', 'Selamat Datang Di TNKB Samsat Bulukumba');
                             redirect('admin');
                         } else {
                             redirect('input');
                         }
                     } else {
-                        $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert" > Password Salah! </div>');
+                        $this->session->set_flashdata('flash-danger', 'Password Salah!');
                         redirect('auth');
                     }
                 } else {
-                    $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert" > Acoount Not activated </div>');
+                    $this->session->set_flashdata('flash-danger', ' Acoount Not activated ');
 
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert" > Akun Tidak Terdaftar! </div>');
+                $this->session->set_flashdata('flash-danger', 'Akun Tidak Terdaftar!');
                 redirect('auth');
             }
         }
@@ -85,7 +86,7 @@ class Auth extends CI_Controller
             $this->load->view('templates/auth_footer');
         } else {
             $this->Auth_model->insertUser();
-            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" > Akun Sukses Registrasi </div>');
+            $this->session->set_flashdata('flash', 'Akun Sukses Registrasi');
             redirect(base_url());
         }
     }
@@ -95,14 +96,14 @@ class Auth extends CI_Controller
 
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('role_id');
-        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" >Sukses Keluar ! </div>');
+        $this->session->set_flashdata('flash-success', 'Selamat Datang Kembali Bapak/Ibu');
         redirect('auth');
     }
 
     public function blocked()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['title'] = 'My Profile';
+        $data['title'] = 'Blocked Access';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

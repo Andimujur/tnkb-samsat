@@ -2,6 +2,7 @@
     <div style="background-image: url( <?= base_url('assets/img/logo/logo.png') ?>);" class="img page-holder">
         <h1 class="h3 mb-4 text-gray-800 "><?= $title ?></h1>
         <div class="row">
+            <div class="flashdata-success" data-flashdata="<?= $this->session->flashdata('flash-success') ?>"></div>
 
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2 ">

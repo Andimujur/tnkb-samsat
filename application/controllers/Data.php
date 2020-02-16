@@ -9,7 +9,9 @@ class data extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        is_logged_in();
+        if ($this->session->userdata('role_id') != 1) {
+            redirect('auth');
+        }
     }
 
 
@@ -54,11 +56,11 @@ class data extends CI_Controller
         ];
 
         if ($data_nopol != NULL) {
-            $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert" >Nomor Polisi Sudah Ada!!!</div>');
+            $this->session->set_flashdata('flash', 'Nomor Polisi Sudah Ada!!!');
             redirect('data/' . $table);
         } else {
             $this->db->insert($table, $data);
-            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" > Data Berhasil Di tambahkan </div>');
+            $this->session->set_flashdata('flash', 'Data Berhasil Di tambahkan');
             redirect('data/' . $table);
         }
     }
@@ -94,20 +96,20 @@ class data extends CI_Controller
                     $key = $this->db->get_where('roda_empat', ['NomorPolisi' => $nopol])->row_array();
                     if ($key != null) {
 
-                        $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert" > Data Gagal Di Ubah ! Nomor Polisi Sudah ada </div>');
+                        $this->session->set_flashdata('flash', 'Data Gagal Di Ubah ! Nomor Polisi Sudah ada');
                         redirect('data/editDataR4/' . $id);
                     } else {
                         $this->db->set($update);
                         $this->db->where('id', $id);
                         $this->db->update('roda_empat');
-                        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" > Data Berhasil Di Ubah </div>');
+                        $this->session->set_flashdata('flash', ' Data Berhasil Di Ubah ');
                         redirect('data/roda_empat');
                     }
                 } else {
                     $this->db->set($update);
                     $this->db->where('id', $id);
                     $this->db->update('roda_empat');
-                    $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" > Data Berhasil Di Ubah </div>');
+                    $this->session->set_flashdata('flash', 'Data Berhasil Di Ubah ');
                     redirect('data/roda_empat');
                 }
             }
@@ -143,20 +145,22 @@ class data extends CI_Controller
                     $key = $this->db->get_where('roda_dua', ['NomorPolisi' => $nopol])->row_array();
                     if ($key != null) {
 
-                        $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert" > Data Gagal Di Ubah ! Nomor Polisi Sudah ada </div>');
+                        $this->session->set_flashdata('flash', 'Data gagal Di Ubah ');
+
                         redirect('data/editDataR2/' . $id);
                     } else {
                         $this->db->set($update);
                         $this->db->where('id', $id);
                         $this->db->update('roda_dua');
-                        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" > Data Berhasil Di Ubah </div>');
+                        $this->session->set_flashdata('flash', 'Data Berhasil Di Ubah ');
+
                         redirect('data/roda_dua');
                     }
                 } else {
                     $this->db->set($update);
                     $this->db->where('id', $id);
                     $this->db->update('roda_dua');
-                    $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" > Data Berhasil Di Ubah </div>');
+                    $this->session->set_flashdata('flash', 'Data Berhasil Di Ubah ');
                     redirect('data/roda_dua');
                 }
             }
@@ -167,7 +171,8 @@ class data extends CI_Controller
     {
         $this->db->where('id', $id);
         $this->db->delete('roda_dua');
-        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" > Data Berhasil Di Hapus </div>');
+        $this->session->set_flashdata('flash', 'Data Berhasil Di hapus ');
+
         redirect('data/roda_dua');
     }
 
@@ -175,7 +180,8 @@ class data extends CI_Controller
     {
         $this->db->where('id', $id);
         $this->db->delete('roda_empat');
-        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert" > Data Berhasil Di Hapus </div>');
+        $this->session->set_flashdata('flash', 'Data Berhasil Di hapus ');
+
         redirect('data/roda_empat');
     }
 }

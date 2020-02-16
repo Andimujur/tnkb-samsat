@@ -18,9 +18,10 @@
                                 <div class=" text-center">
                                     <img src="<?= base_url('assets/img/logo/logo.png') ?>" class=" mb-4" style="width: 200px" alt="logo samsat">
                                 </div>
-                                <?php if ($this->session->flashdata('flash')) : ?>
-                                    <?= $this->session->flashdata('flash'); ?>
-                                <?php endif; ?>
+
+                                <div class="flashdata-success" data-flashdata="<?= $this->session->flashdata('flash-success') ?>"></div>
+                                <div class="flashdata-danger" data-flashdatadanger="<?= $this->session->flashdata('flash-danger') ?>"></div>
+
                                 <form class="user" action="<?= base_url('Auth'); ?>" method="POST">
                                     <div class="form-group">
                                         <input type="text" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="" placeholder="Masukkan Username" value="<?= set_value('email'); ?>">

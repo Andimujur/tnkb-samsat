@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="col-lg-11">
-            <?= $this->session->flashdata('flash'); ?>
+            <div class="flashdata" data-flashdata="<?= $this->session->flashdata('flash') ?>"></div>
 
             <a href="" class="btn btn-primary mb-3 " data-toggle="modal" data-target="#tambahData">Tambah Data</a>
 
